@@ -44,12 +44,12 @@ export default {
         <button @click="OpenModalAdd()">add</button>
     </div>
     <div v-for="item in data.task" class="max-w-sm rounded overflow-hidden shadow-lg bg-gray-500" style="padding: 12px; margin-bottom: 10px;">
-        <div class="grid grid-cols-2 gap-4">
-            <div class="">id : {{ item.id }}</div>
-            <div>titre : {{ item.title }}</div>
-            <div>description : {{ item.description }}</div>
-            <div>etat : {{ item.completed }}</div>
-            <div>stresse : {{ item.stresseLevel }}</div>
+        <div class="grid grid-cols-4 gap-4">
+            <!-- <div class="">id : {{ item.id }}</div> -->
+            <div><strong>titre :</strong> {{ item.title }}</div>
+            <div><strong>description :</strong> {{ item.description }}</div>
+            <div><strong>etat :</strong> {{ item.completed }}</div>
+            <div><strong>stresse :</strong> {{ item.stresseLevel }}</div>
         </div>
     </div>
 </template>
