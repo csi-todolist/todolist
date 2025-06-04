@@ -35,10 +35,10 @@ class TaskController extends Controller
 
     public function create(StoreTaskRequest $request){
         Task::create($request->validated());
-        // $validated = $request->validated();
+    }
 
-        // $validated['user_id'] = Auth::id(); 
-
-        // Task::create($validated);
+    public function edit(StoreTaskRequest $request, $id){
+        $task = Task::find($id);
+        $task->update($request->validated());
     }
 }

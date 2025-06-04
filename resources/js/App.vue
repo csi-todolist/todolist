@@ -16,8 +16,8 @@ export default {
 </script>
 
 <template>
-    <widget-container-modal />
-<Task />
+  <widget-container-modal />
+  <Task />
 </template>
 
 <style scoped>
