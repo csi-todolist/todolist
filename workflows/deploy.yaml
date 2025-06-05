@@ -1,0 +1,42 @@
+name: Deploiement automatique
+
+on:
+  push:
+    branches:
+      - main  # Déclenche l'action à chaque push sur main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v3
+
+      - name: Vérification du code (lint avec ESLint)
+        run: |
+          npm install
+          npm run lint
+
+      - name: Création des fichiers de production
+        run: |
+          npm run build
+
+      - name: Déploiement sur le VPS via rsync
+        run: |
+          rsync -avz --delete ./dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+        env:
+          RSYNC_RSH: sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no
+
+      - name: Envoyer une notification de succès
+        run: echo "Déploiement réussi à $(date)" > DEPLOY_LOG.txt
+
+      - name: Commit du log dans le README (optionnel)
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          echo "Dernier déploiement : $(date)" >> README.md
+          git add README.md
+          git commit -m "Mise à jour du log de déploiement"
+          git push
+        continue-on-error: true
