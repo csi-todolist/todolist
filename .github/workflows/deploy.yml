@@ -41,11 +41,13 @@ jobs:
         run: echo "Déploiement réussi à $(date)" > DEPLOY_LOG.txt
 
       - name: Commit du log dans DEPLOY_LOG (optionnel)
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           echo "Dernier déploiement : $(date)" >> DEPLOY_LOG.txt
           git add DEPLOY_LOG.txt
           git commit -m "Mise à jour du log de déploiement"
-          git push
+          git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
         continue-on-error: true
