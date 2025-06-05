@@ -15,7 +15,7 @@ export default {
                 id_user: this.idUser,
                 description: "",
                 completed: false,
-                stresseLevel: null,
+                stressLevel: null,
             },
 
         }
@@ -28,7 +28,7 @@ export default {
                 user_id: this.data.id_user,
                 description: this.data.description,
                 completed: this.data.completed,
-                stresseLevel: this.data.stresseLevel
+                stressLevel: this.data.stressLevel
             })
             .then(response => {
                 this.onClose();
@@ -57,6 +57,18 @@ export default {
           Description
         </label>
         <input v-model="data.description" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text">
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+          Stress 
+        </label>
+        <select v-model="data.stressLevel" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="text">
+          <option value="1">😌</option>
+          <option value="2">🙂</option>
+          <option value="3">😐</option>
+          <option value="4">😰</option>
+          <option value="5">😱</option>
+        </select>
       </div>
       <div class="flex items-center justify-between">
         <button @click="createTask" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">

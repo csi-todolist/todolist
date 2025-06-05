@@ -129,7 +129,6 @@ export default {
                     color: '#fff'
                     }"
                 >
-                    {{ item.stressLevel }}
                     <span class="emoji">{{ getStressEmoji(item.stressLevel) }}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
@@ -158,7 +157,7 @@ p{
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   gap: 16px; /* Espace entre les éléments */
   padding: 16px;
 }
@@ -190,7 +189,7 @@ p{
 }
 
 .emoji {
-  margin-left: 8px;
+  /* margin-left: 8px; */
   font-size: 1.4em;
 }
 
