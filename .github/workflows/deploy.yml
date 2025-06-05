@@ -50,5 +50,6 @@ jobs:
           echo "Dernier déploiement : $(date)" >> DEPLOY_LOG.txt
           git add DEPLOY_LOG.txt
           git commit -m "Mise à jour du log de déploiement"
-          git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+          git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}
+          git push origin HEAD:${{ github.ref }}
         continue-on-error: true
