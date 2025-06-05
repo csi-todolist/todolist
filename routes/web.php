@@ -5,7 +5,7 @@ use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/todo', function () {
@@ -25,7 +25,8 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/api/tache', [TaskController::class, 'showAll'])->name('api.tache');
+Route::get('/api/tache', [ApiController::class, 'showAll'])->name('api.tache');
+Route::get('/api/tache/{id}', [ApiController::class, 'showOneTask'])->name('api.uneTache');
 
 
 require __DIR__.'/auth.php';

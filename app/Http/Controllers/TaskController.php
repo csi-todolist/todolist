@@ -33,12 +33,6 @@ class TaskController extends Controller
         return response()->json($data);
     }
 
-    public function showAll()
-    {
-        $data = Task::all();
-        return response()->json($data);
-    }
-
     public function create(StoreTaskRequest $request){
         Task::create($request->validated());
     }
