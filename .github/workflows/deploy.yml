@@ -12,10 +12,6 @@ jobs:
     steps:
       - name: Cloner le dépôt
         uses: actions/checkout@v3
-        
-      - name: Se placer dans le bon dossier
-        run: |
-          cd groupe1
   
       - name: Installer les dépendances
         run: |
