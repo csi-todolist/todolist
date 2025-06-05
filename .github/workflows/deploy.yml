@@ -20,6 +20,10 @@ jobs:
       - name: Vérification du code (lint avec ESLint)
         run: |
           npx eslint  
+          
+      - name: Vérifier contenu build
+        run: |
+          ls -la public/build
 
       - name: Création des fichiers de production
         run: |
