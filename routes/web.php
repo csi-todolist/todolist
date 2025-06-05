@@ -17,9 +17,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/task', [TaskController::class, 'show'])->name('task');
+    Route::post('/task', [App\Http\Controllers\TaskController::class, 'create']);
     Route::post('/create', [TaskController::class, 'create'])->name('create');
     Route::post('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
     Route::post('/delete/{id}', [TaskController::class, 'delete'])->name('delete');
+    Route::post('/generate-tasks', [App\Http\Controllers\MistralController::class, 'generateTasks']);
 });
 
 require __DIR__.'/auth.php';
