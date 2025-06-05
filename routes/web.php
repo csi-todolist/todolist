@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
     Route::post('/delete/{id}', [TaskController::class, 'delete'])->name('delete');
     Route::post('/generate-tasks', [App\Http\Controllers\MistralController::class, 'generateTasks']);
+
 });
+
+Route::get('/api/tache', [TaskController::class, 'showAll'])->name('api.tache');
+
 
 require __DIR__.'/auth.php';
