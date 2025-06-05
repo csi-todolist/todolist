@@ -66,7 +66,7 @@ class TaskController extends Controller
             'messages' => [
                 [
                     "role" => "user",
-                    "content" => "Génère une liste de tâches concrètes et concises à partir de ce texte (une par ligne) : " . $prompt
+                    "content" => "Génère une tâche concrètes et concises avec titre et description à partir de ce texte : " . $prompt
                 ]
             ],
             "temperature" => 0.7,
