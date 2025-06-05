@@ -54,7 +54,7 @@ jobs:
       - name: Envoyer une notification de succès
         run: echo "Déploiement réussi à $(date)" > DEPLOY_LOG.txt
 
-      - name: Commit du log dans le README (optionnel)
+      - name: Commit du log dans DEPLOY_LOG (optionnel)
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
