@@ -25,20 +25,6 @@ jobs:
         run: |
           npm run build
           
-      - name: Afficher dossier courant
-        run: pwd
-
-      - name: Lister fichiers racine
-        run: ls -la
-
-      - name: Lister dossier public
-        run: ls -la public
-
-      - name: Lister dossier public/build
-        run: ls -la public/build || echo "public/build absent"
-
-      - name: Afficher fichiers récursivement
-        run: find . -type f
         
       - name: Vérifier contenu build
         run: |
