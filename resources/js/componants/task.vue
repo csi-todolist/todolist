@@ -21,7 +21,7 @@ export default {
                     console.log(error);
                 })
         },
-        updateData(id){
+        updateComputed(id){
             const dataArray = Object.values(this.data.task);
             const item = dataArray.find(({ id }) => id === id)
             console.log(item);
@@ -40,7 +40,35 @@ export default {
                     console.log(error);
                 })
         },
+        updateData(id) {
+            // TROUVE DIRECTEMENT L'ITEM DANS TON TABLEAU (il doit être déjà réactif si tu utilises v-for="item in data.task")
+            const item = this.data.task.find(task => task.id === id);
+            if (!item) return;
 
+            axios.post('/edit/' + id, {
+                title: item.title,
+                user_id: item.user_id,
+                description: item.description,
+                completed: item.completed,
+                stresseLevel: item.stressLevel,
+            })
+            .then(response => {
+                console.log(response)
+                this.getData();
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        deleteData(id){
+            axios.post('/delete/'+id)
+                .then(response =>{
+                    this.getData();
+                })
+                .catch(error =>{
+                    console.log(error);
+                })
+        },
         OpenModalAdd(){
                 const props = {
                     onClose: () => {
@@ -86,18 +114,13 @@ export default {
     <div class="grid-container">
         <div v-for="item in data.task">
             <div class="grid-item">
-                <div><strong>titre :</strong> {{ item.title }}</div>
-                <div><strong>description :</strong> {{ item.description }}</div>
                 <div>
-                    <label class="custom-checkbox">
-                        <input
-                        type="checkbox"
-                        :checked="item.completed"
-                        @change="updateData(item.id)"
-                        />
-                        <span v-if="item.completed">Terminée</span>
-                        <span v-else>À faire</span>
-                    </label>
+                    <label>titre :</label>
+                    <input class="input-paragraph" @change="updateData(item.id)" type="text" v-model="item.title">
+                </div>
+                <div>
+                    <label>description :</label>
+                    <input class="input-paragraph" @change="updateData(item.id)" type="text" v-model="item.description">
                 </div>
                 <div
                     class="stress-badge"
@@ -108,6 +131,20 @@ export default {
                 >
                     {{ item.stressLevel }}
                     <span class="emoji">{{ getStressEmoji(item.stressLevel) }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <div>
+                        <label class="custom-checkbox">
+                            <input
+                            type="checkbox"
+                            :checked="item.completed"
+                            @change="updateComputed(item.id)"
+                            />
+                            <span v-if="item.completed">Terminée</span>
+                            <span v-else>À faire</span>
+                        </label>
+                    </div>
+                    <button @click="deleteData(item.id)" class="btn">supprimer</button>
                 </div>
             </div>
         </div>
@@ -128,6 +165,7 @@ p{
 
 .grid-item {
   border-radius: 12px;
+  background-color: gray;
   box-shadow: 0 2px 6px rgba(0,0,0,0.07);
   padding: 24px;
   text-align: center;
@@ -214,5 +252,31 @@ p{
   top: 1px;   /* <--- ajuste verticalement */
   transform: rotate(45deg);
 }
+
+.input-paragraph {
+  border: none;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  min-width: 0;
+  /* Si tu veux éviter que le texte déborde */
+  word-break: break-word;
+  /* Facultatif : un léger padding en bas pour aérer */
+  padding-bottom: 2px;
+  cursor: pointer;
+}
+.input-paragraph:focus {
+  outline: none;
+  border: none;
+  background: transparent;
+  /* Optionnel : tu peux mettre une légère surbrillance si tu veux */
+  /* border-bottom: 1px dashed #888; */
+}
+
 
 </style>

@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/todo', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/task', [TaskController::class, 'show'])->name('task');
     Route::post('/create', [TaskController::class, 'create'])->name('create');
     Route::post('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
+    Route::post('/delete/{id}', [TaskController::class, 'delete'])->name('delete');
 });
 
 require __DIR__.'/auth.php';

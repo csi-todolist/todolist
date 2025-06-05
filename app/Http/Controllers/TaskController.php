@@ -41,4 +41,8 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->update($request->validated());
     }
+
+    public function delete($id){
+        Task::find($id)->delete();
+    }
 }
