@@ -32,7 +32,22 @@ jobs:
       - name: Création des fichiers de production
         run: |
           npm run build
+          
+      - name: Afficher dossier courant
+        run: pwd
 
+      - name: Lister fichiers racine
+        run: ls -la
+
+      - name: Lister dossier public
+        run: ls -la public
+
+      - name: Lister dossier public/build
+        run: ls -la public/build || echo "public/build absent"
+
+      - name: Afficher fichiers récursivement
+        run: find . -type f
+  
       - name: Déploiement sur le VPS via rsync
         run: |
           rsync -avz --delete ./dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
