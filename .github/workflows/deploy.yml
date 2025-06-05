@@ -19,7 +19,7 @@ jobs:
 
       - name: Vérification du code (lint avec ESLint)
         run: |
-          npx eslint
+          npx eslint resources/js 
 
       - name: Création des fichiers de production
         run: |
@@ -46,7 +46,8 @@ jobs:
   
       - name: Déploiement sur le VPS via rsync
         run: |
-          rsync -avz --delete ./dist/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+          rsync -avz --delete public/build/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+
         env:
           RSYNC_RSH: sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no
 
@@ -57,8 +58,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          echo "Dernier déploiement : $(date)" >> README.md
-          git add README.md
+          echo "Dernier déploiement : $(date)" >> DEPLOY_LOG.txt
+          git add DEPLOY_LOG.txt
           git commit -m "Mise à jour du log de déploiement"
           git push
         continue-on-error: true
